@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ibex35-database": {
+      "command": "node",
+      "args": ["/Users/yourname/ibex35dashboard/mcp-server/dist/index.js"],
+      "env": {
+        "IBEX35_API_URL": "https://ibex35-sheets-api.anurnberg.workers.dev"
+      }
+    }
+  }
+}
