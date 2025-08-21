@@ -35,18 +35,18 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anbrme/ibex35-mcp-server.git"
+    "url": "https://github.com/yourusername/ibex35-mcp-server.git"
   },
-  "homepage": "https://github.com/anbrme/ibex35-mcp-server#readme",
+  "homepage": "https://github.com/yourusername/ibex35-mcp-server#readme",
   "bugs": {
-    "url": "https://github.com/anbrme/ibex35-mcp-server/issues"
+    "url": "https://github.com/yourusername/ibex35-mcp-server/issues"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.0.4"
   },
   "devDependencies": {
     "@types/node": "^20.10.0",
-    "typescript": "^5.9.2"
+    "typescript": "^5.3.0"
   },
   "engines": {
     "node": ">=18.0.0"

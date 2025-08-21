@@ -26,5 +26,11 @@ export declare class DatabaseManager {
     getWeeklyReports(reportType?: string, limit?: number): Promise<any[]>;
     getESGScores(companyId?: string): Promise<any[]>;
     executeCustomQuery(sql: string, params?: any[]): Promise<any[]>;
+    private fuzzyMatch;
+    private levenshteinDistance;
+    comprehensiveSearch(query: string, limit?: number): Promise<any>;
+    private generateSearchSuggestions;
+    smartCompanyLookup(query: string): Promise<any>;
+    interpretQuery(userQuery: string): Promise<any>;
     close(): void;
 }

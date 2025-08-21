@@ -23,7 +23,7 @@ class IBEX35MCPServer {
         });
         // Initialize database connection to Cloudflare Worker API
         const apiUrl = process.env.IBEX35_API_URL || 'https://ibex35-sheets-api.anurnberg.workers.dev';
-        const apiKey = process.env.IBEX35_API_KEY || 'ibex35-public-access-2024';
+        const apiKey = process.env.IBEX35_API_KEY;
         this.db = new DatabaseManager({ apiUrl, apiKey });
         this.analytics = new AnalyticsManager(this.db);
         this.setupToolHandlers();
@@ -334,6 +334,54 @@ class IBEX35MCPServer {
                             },
                         },
                     },
+                    // Search and Query Helper Tools
+                    {
+                        name: 'comprehensive_search',
+                        description: 'Search across all data types (companies, directors, news, lobbying) with fuzzy matching. Best for general queries.',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                query: {
+                                    type: 'string',
+                                    description: 'Search query - can be company name, director name, topic, etc.',
+                                },
+                                limit: {
+                                    type: 'number',
+                                    description: 'Maximum number of results per category',
+                                    default: 20,
+                                },
+                            },
+                            required: ['query'],
+                        },
+                    },
+                    {
+                        name: 'smart_company_lookup',
+                        description: 'Find companies with intelligent matching - handles misspellings, partial names, symbols, and sectors',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                query: {
+                                    type: 'string',
+                                    description: 'Company name, symbol, or sector to search for',
+                                },
+                            },
+                            required: ['query'],
+                        },
+                    },
+                    {
+                        name: 'interpret_query',
+                        description: 'Help users understand what tools to use for their question and suggest parameters',
+                        inputSchema: {
+                            type: 'object',
+                            properties: {
+                                user_query: {
+                                    type: 'string',
+                                    description: 'The user\'s original question or request',
+                                },
+                            },
+                            required: ['user_query'],
+                        },
+                    },
                     // Custom queries
                     {
                         name: 'execute_custom_query',
@@ -424,6 +472,15 @@ class IBEX35MCPServer {
                         break;
                     case 'get_sector_correlation_analysis':
                         result = await this.analytics.getSectorCorrelationAnalysis(args?.days || 30);
+                        break;
+                    case 'comprehensive_search':
+                        result = await this.db.comprehensiveSearch(args?.query, args?.limit || 20);
+                        break;
+                    case 'smart_company_lookup':
+                        result = await this.db.smartCompanyLookup(args?.query);
+                        break;
+                    case 'interpret_query':
+                        result = await this.db.interpretQuery(args?.user_query);
                         break;
                     case 'execute_custom_query':
                         result = await this.db.executeCustomQuery(args?.sql, args?.params || []);
