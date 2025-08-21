@@ -12,7 +12,8 @@ Transform your AI assistant into a Spanish corporate intelligence expert:
 - **Political Connections** - Government-appointed directors and political backgrounds
 - **Real-time Market Data** - Current prices, volumes, daily changes, historical trends
 
-Perfect for financial research, corporate governance studies, investment analysis, and academic research on Spanish markets.
+Perfect for financial research, corporate governance studies, investment analysis, and academic research on Spanish markets. Not suitable for financial investment or trading. Certain data may be updated at irregular intervals, because there is a substantial manual input and validation of the data from official sources.
+
 
 ## Features
 
@@ -51,7 +52,7 @@ npm install -g ibex35-mcp-server
 
 **Option 2: From Source**
 ```bash
-git clone https://github.com/yourusername/ibex35-mcp-server.git
+git clone https://github.com/anbrme/ibex35-mcp-server.git
 cd ibex35-mcp-server
 npm install
 npm run build
@@ -231,11 +232,12 @@ This MCP server is designed to work with the IBEX 35 Dashboard ecosystem. Ensure
 ## 📊 Data Sources
 
 This MCP server aggregates data from authoritative Spanish sources:
-- **Madrid Stock Exchange (BME)** - Real-time market data and trading information
-- **CNMV** - Official regulatory filings and shareholder disclosures  
+- **CNMV** - Official regulatory filings and shareholder disclosures in Spain 
 - **EU Transparency Register** - Corporate lobbying activities and meetings
 - **Corporate Websites** - Board compositions and governance structures
 - **Financial News Sources** - Market sentiment and company-specific news
+- **Google Finance** (for stock prices - be aware that in Spain this has a 15 minutes delay, historical data goes back to 1 January 2021)
+- **Wikipedia** for information about companies and some prominent directors
 
 ## 🔒 Privacy & Security
 
@@ -248,6 +250,8 @@ This MCP server aggregates data from authoritative Spanish sources:
 - **Secure infrastructure** - Protected backend with authentication and monitoring
 
 ## 📈 Use Cases
+
+### NOT SUITABLE FOR FINANCIAL INVESTMENT ###
 
 ### Financial Professionals
 - Due diligence and investment research
