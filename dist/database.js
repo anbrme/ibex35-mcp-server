@@ -258,51 +258,80 @@ export class DatabaseManager {
     }
     // News and sentiment queries
     async getRecentNews(companyId, limit = 20) {
-        if (companyId) {
-            const companies = await this.getAllCompanies();
-            const company = companies.find(c => c.id === companyId);
-            if (!company)
-                return [];
-            const data = await this.fetchAPI('/api/news/company', {
-                symbol: company.symbol,
-                limit: limit
-            });
-            return data.news || [];
+        try {
+            if (companyId) {
+                const companies = await this.getAllCompanies();
+                const company = companies.find(c => c.id === companyId);
+                if (!company) {
+                    throw new Error(`Company with ID "${companyId}" not found. Use get_all_companies to see available companies.`);
+                }
+                const data = await this.fetchAPI('/api/news/company', {
+                    symbol: company.ticker || company.symbol,
+                    limit: limit
+                });
+                return data.data || [];
+            }
+            else {
+                const data = await this.fetchAPI('/api/news', { limit: limit });
+                return data.data || [];
+            }
         }
-        else {
-            const data = await this.fetchAPI('/api/news', { limit: limit });
-            return data.news || [];
+        catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error(`Failed to fetch recent news: ${error}. Please check your connection and try again.`);
         }
     }
     async getNewsBySentiment(sentiment, limit = 20) {
-        // Fetch all recent news and filter by sentiment client-side
-        const data = await this.fetchAPI('/api/news', { limit: 100 });
-        const allNews = data.news || [];
-        // Filter by sentiment
-        const filteredNews = allNews.filter((article) => {
-            if (!article.sentiment && !article.sentiment_score)
-                return false;
-            // Handle sentiment as string (positive, negative, neutral)
-            if (typeof article.sentiment === 'string') {
-                return article.sentiment.toLowerCase() === sentiment.toLowerCase();
+        try {
+            // Map sentiment strings to numeric ranges for the API
+            let sentimentMin;
+            let sentimentMax;
+            switch (sentiment.toLowerCase()) {
+                case 'positive':
+                    sentimentMin = 0.1;
+                    sentimentMax = 1.0;
+                    break;
+                case 'negative':
+                    sentimentMin = -1.0;
+                    sentimentMax = -0.1;
+                    break;
+                case 'neutral':
+                    sentimentMin = -0.1;
+                    sentimentMax = 0.1;
+                    break;
+                default:
+                    throw new Error(`Invalid sentiment "${sentiment}". Use "positive", "negative", or "neutral".`);
             }
-            // Handle sentiment as numeric score
-            if (typeof article.sentiment_score === 'number') {
-                const score = article.sentiment_score;
-                switch (sentiment.toLowerCase()) {
-                    case 'positive':
-                        return score > 0.1;
-                    case 'negative':
-                        return score < -0.1;
-                    case 'neutral':
-                        return score >= -0.1 && score <= 0.1;
-                    default:
-                        return false;
+            // Use the proper API endpoint with sentiment range filtering
+            const data = await this.fetchAPI('/api/news', {
+                limit: limit,
+                sentimentMin: sentimentMin,
+                sentimentMax: sentimentMax,
+                orderBy: 'published_at',
+                orderDirection: 'desc'
+            });
+            const articles = data.data || [];
+            if (articles.length === 0) {
+                // Provide helpful message when no articles found
+                const totalArticles = await this.fetchAPI('/api/news', { limit: 1 });
+                const totalCount = totalArticles.data?.length || 0;
+                if (totalCount === 0) {
+                    throw new Error('No news articles available in the database. The news service may be updating or there could be a data sync issue.');
+                }
+                else {
+                    throw new Error(`No ${sentiment} sentiment articles found. Try "neutral" sentiment or check recent news with get_recent_news tool. Total articles available: ${totalCount}`);
                 }
             }
-            return false;
-        });
-        return filteredNews.slice(0, limit);
+            return articles;
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error(`Failed to fetch news by sentiment: ${error}. Please check your connection and try again.`);
+        }
     }
     // Lobbying and transparency queries
     async getLobbyingMeetings(companyId, limit = 20) {
