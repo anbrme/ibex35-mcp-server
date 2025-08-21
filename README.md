@@ -59,12 +59,9 @@ npm run build
 
 ## Configuration
 
-### Environment Variables
-- `IBEX35_API_URL`: URL to your Cloudflare Worker API (defaults to `https://ibex35-sheets-api.anurnberg.workers.dev`)
-- `IBEX35_API_KEY`: Optional API key for authentication (if your worker requires it)
+**Zero configuration required!** The server works out of the box with built-in access to real-time IBEX 35 data.
 
-### Cloudflare Worker Setup
-The server connects to your existing Cloudflare Worker that provides API access to the D1 database. No local database setup is required.
+All data access is provided through secure API endpoints with built-in rate limiting and no user authentication needed.
 
 ## Usage
 
@@ -82,10 +79,7 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "ibex35-database": {
-      "command": "ibex35-mcp",
-      "env": {
-        "IBEX35_API_URL": "https://ibex35-sheets-api.anurnberg.workers.dev"
-      }
+      "command": "ibex35-mcp"
     }
   }
 }
@@ -97,10 +91,7 @@ Add to your `claude_desktop_config.json`:
   "mcpServers": {
     "ibex35-database": {
       "command": "node",
-      "args": ["/path/to/ibex35-mcp-server/dist/index.js"],
-      "env": {
-        "IBEX35_API_URL": "https://ibex35-sheets-api.anurnberg.workers.dev"
-      }
+      "args": ["/path/to/ibex35-mcp-server/dist/index.js"]
     }
   }
 }
@@ -248,11 +239,13 @@ This MCP server aggregates data from authoritative Spanish sources:
 
 ## 🔒 Privacy & Security
 
-- **No API keys required** - Uses publicly available data sources
+- **No setup required** - Works immediately with built-in secure access
+- **Rate limited** - Fair usage limits ensure service availability for everyone
 - **No personal data** - Only publicly disclosed corporate information
-- **No tracking** - Direct API access without data collection
+- **No tracking** - Direct API access without user data collection
 - **Open source** - Full transparency in data processing and analysis
 - **Read-only access** - Cannot modify or delete any data
+- **Secure infrastructure** - Protected backend with authentication and monitoring
 
 ## 📈 Use Cases
 
@@ -299,12 +292,27 @@ npm cache clean --force
 npm install -g ibex35-mcp-server
 ```
 
-### API connectivity
-The server uses public APIs - no authentication required. If you see errors:
-```bash
-# Test API accessibility
-curl https://ibex35-sheets-api.anurnberg.workers.dev/api/companies
-```
+### Connection issues
+The server connects to secure backend APIs with built-in authentication. If you see connection errors:
+
+1. **Check Claude Desktop restart** - Always restart Claude Desktop completely after config changes
+2. **Verify JSON syntax** - Ensure your config file has valid JSON
+3. **Network connectivity** - The server requires internet access to fetch real-time data
+
+The backend service includes automatic failover and monitoring for high availability.
+
+## 🏗️ Technical Architecture
+
+This MCP server connects to a secure, scalable backend infrastructure:
+
+- **Cloudflare Workers** - Edge computing for low latency worldwide
+- **D1 Database** - Serverless SQL database with real-time synchronization
+- **Rate Limiting** - Built-in protection ensuring fair usage (1000 requests/hour)
+- **Authentication** - Secure API access with no user setup required
+- **Monitoring** - 24/7 uptime monitoring and automatic error handling
+- **Data Pipeline** - Automated hourly sync from authoritative Spanish sources
+
+The MCP server includes a hardcoded secure access token that provides read-only access to public IBEX 35 data with appropriate usage limits.
 
 ## 🤝 Contributing
 

@@ -35,7 +35,7 @@ class IBEX35MCPServer {
 
     // Initialize database connection to Cloudflare Worker API
     const apiUrl = process.env.IBEX35_API_URL || 'https://ibex35-sheets-api.anurnberg.workers.dev';
-    const apiKey = process.env.IBEX35_API_KEY;
+    const apiKey = process.env.IBEX35_API_KEY || 'ibex35-public-access-2024';
     this.db = new DatabaseManager({ apiUrl, apiKey });
     this.analytics = new AnalyticsManager(this.db);
 
