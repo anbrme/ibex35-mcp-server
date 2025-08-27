@@ -57,7 +57,7 @@ npm install -g ibex35-mcp-server
 
 **Option 2: From Source**
 ```bash
-git clone https://github.com/yourusername/ibex35-mcp-server.git
+git clone https://github.com/anbrme/ibex35-mcp-server.git
 cd ibex35-mcp-server
 npm install
 npm run build
@@ -90,7 +90,7 @@ Add to your `claude_desktop_config.json`:
     "ibex35-database": {
       "command": "ibex35-mcp",
       "env": {
-        "IBEX35_API_URL": "https://ibex35-sheets-api.anurnberg.workers.dev"
+        "IBEX35_API_URL": "https://ibex35-api.ncdata.eu"
       }
     }
   }
@@ -105,7 +105,7 @@ Add to your `claude_desktop_config.json`:
       "command": "node",
       "args": ["/path/to/ibex35-mcp-server/dist/index.js"],
       "env": {
-        "IBEX35_API_URL": "https://ibex35-sheets-api.anurnberg.workers.dev"
+        "IBEX35_API_URL": "https://ibex35-api.ncdata.eu"
       }
     }
   }
@@ -329,7 +329,7 @@ npm install -g ibex35-mcp-server
 The server uses public APIs - no authentication required. If you see errors:
 ```bash
 # Test API accessibility
-curl https://ibex35-sheets-api.anurnberg.workers.dev/api/companies
+curl https://ibex35-api.ncdata.eu/api/companies
 ```
 
 ## 🤝 Contributing
