@@ -356,7 +356,7 @@ MIT License - Free for commercial and non-commercial use.
 - **GitHub Issues:** Report bugs and request features
 - **GitHub Discussions:** Community support and ideas
 - **Web Dashboard:** Try the data through the web interface
-- **Model Recommendation:** Works best with Claude 3.5 Sonnet
+- **Model Recommendation:** Works best with Claude 4 Sonnet
 
 ---
 
