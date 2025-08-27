@@ -66,7 +66,7 @@ npm run build
 ## Configuration
 
 ### Environment Variables
-- `IBEX35_API_URL`: URL to your Cloudflare Worker API (defaults to `https://ibex35-sheets-api.anurnberg.workers.dev`)
+- `IBEX35_API_URL`: URL to your Cloudflare Worker API (defaults to `https://ibex35-api.ncdata.eu`)
 - `IBEX35_API_KEY`: Optional API key for authentication (if your worker requires it)
 
 ### Cloudflare Worker Setup
