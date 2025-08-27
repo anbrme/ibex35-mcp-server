@@ -24,7 +24,13 @@ Perfect for financial research, corporate governance studies, investment analysi
 - **News & Sentiment**: Recent news with sentiment analysis and relevance scoring
 - **ESG Data**: Environmental, Social, and Governance scores and metrics
 
-### Advanced Analytics
+### Advanced Analytics ⚡ **ENHANCED**
+- **Natural Language Processing**: Ask complex questions in plain English
+- **Company Comparisons**: Side-by-side analysis across financial, governance, and performance metrics  
+- **Trend Analysis & Forecasting**: Advanced price trend analysis with simple forecasting capabilities
+- **Investment Risk Assessment**: Comprehensive risk evaluation across market, governance, and operational factors
+- **Analyst Report Generation**: Professional company deep-dives, sector overviews, and governance analysis
+- **Investment Opportunity Screening**: Filter and rank companies based on custom criteria
 - **Network Analysis**: Board interlock analysis, shareholder overlap detection
 - **Governance Risk Assessment**: Red flag identification, concentration metrics
 - **Market Correlation**: Sector performance analysis and correlation studies
@@ -150,6 +156,14 @@ Add to your `claude_desktop_config.json`:
 - `get_network_analysis` - Complete network analysis of governance relationships
 - `get_sector_correlation_analysis` - Sector performance correlation analysis
 
+### ⚡ **ENHANCED** AI-Powered Analysis
+- `analyze_natural_query` - Process complex natural language queries with intelligent routing
+- `compare_companies` - Multi-dimensional company comparison (financial, governance, performance)
+- `analyze_trends` - Advanced trend analysis with forecasting (company, sector, market, correlation)
+- `assess_investment_risk` - Comprehensive risk assessment (market, governance, sector, liquidity, concentration)
+- `generate_analyst_report` - Professional analyst reports (company deep-dive, sector overview, governance analysis)
+- `screen_opportunities` - Investment opportunity screening with custom criteria and scoring
+
 ### Reporting
 - `get_weekly_reports` - Generated weekly market and governance reports
 - `get_esg_scores` - ESG scores and sustainability metrics
@@ -199,6 +213,18 @@ Once connected, ask Claude natural language questions about IBEX 35 data:
 "Show me recent news sentiment for renewable energy companies"
 "Which companies have the most diverse boards?"
 "Find companies with suspicious governance patterns"
+```
+
+### ⚡ **ENHANCED** Natural Language Analysis
+```
+"Which banking stocks have grown most in the last month?"
+"Show me companies with high governance risk and explain why"
+"Compare Santander vs BBVA across all metrics"
+"Find undervalued large-cap companies with good governance scores"
+"Generate a comprehensive report on the energy sector outlook"
+"What are the price trends for telecommunications stocks?"
+"Assess the investment risks of the banking sector"
+"Screen for opportunities: P/E under 15, market cap over 10B, exclude energy"
 ```
 
 ## Security
